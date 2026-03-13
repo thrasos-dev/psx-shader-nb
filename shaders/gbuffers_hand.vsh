@@ -11,6 +11,7 @@ varying vec4 lmcoord;
 varying vec4 color;
 varying vec4 normalMat;
 varying vec4 lightLevels;
+varying vec3 viewPos;
 
 attribute vec4 mc_Entity;
 uniform vec2 texelSize;
@@ -30,6 +31,7 @@ void main() {
 	vec3 position = PixelSnap(position4, vertex_inaccuracy_hand).xyz;
 
 	color = gl_Color;
-	
+	viewPos = (gl_ModelViewMatrix * gl_Vertex).xyz;
+
 	gl_Position = toClipSpace3(position);
 }

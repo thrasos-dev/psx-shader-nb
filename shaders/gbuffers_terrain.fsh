@@ -13,11 +13,14 @@ varying vec4 texcoord;
 varying vec4 texcoordAffine;
 varying vec4 lmcoord;
 varying vec4 color;
+varying vec3 viewPos;
 
 #include "/lib/psx_util.glsl"
 
 uniform sampler2D texture;
 uniform sampler2D lightmap;
+uniform int heldBlockLightValue;
+uniform int heldBlockLightValue2;
 
 void main() {
 	#ifdef affine_mapping
@@ -31,7 +34,20 @@ void main() {
 	vec2 affine = texcoord.xy;
 	#endif
 
-	vec4 lighting = color * (texture2D(lightmap, lmcoord.st) * 0.8 + 0.2);
+	// Dynamic hand light
+	vec2 lm = lmcoord.st;
+	#ifdef dynamic_hand_light
+	int maxHeldLight = max(heldBlockLightValue, heldBlockLightValue2);
+	if (maxHeldLight > 0) {
+		float dist = length(viewPos);
+		float atten = max(0.0, 1.0 - dist / float(maxHeldLight));
+		atten *= atten;
+		float dynamicLm = (float(maxHeldLight) * atten) / 16.0 + 1.0 / 32.0;
+		lm.s = max(lm.s, dynamicLm);
+	}
+	#endif
+
+	vec4 lighting = color * (texture2D(lightmap, lm) * 0.8 + 0.2);
 	vec4 col = texture2D(texture, affine) * lighting;
 	
 	gl_FragData[0] = col;

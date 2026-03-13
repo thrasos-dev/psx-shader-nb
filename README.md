@@ -4,18 +4,9 @@ This shader pack is a fork of ckosmic's [Minecraft PSX Shader](https://github.co
 
 ## Changes in this Fork
 
-### Modified
+### No-Bounce Vertex Fix
 
 Changed vertex transformation to eliminate the bouncing effect when moving.
-
-### Technical Details
-
-The following files were modified:
-
-- `shaders/gbuffers_entities.vsh`
-- `shaders/gbuffers_hand.vsh`
-- `shaders/gbuffers_basic.vsh`
-- `shaders/gbuffers_armor_glint.vsh`
 
 Changed the vertex transformation from:
 
@@ -28,6 +19,10 @@ to standard transformation:
 ```glsl
 vec4 position4 = gl_ModelViewMatrix * vec4(gl_Vertex);
 ```
+
+### Dynamic Hand Light
+
+Added real dynamic lighting from held light sources (torches, lanterns, etc.). Light now updates continuously as you move, rather than only when breaking/placing blocks. Uses `heldBlockLightValue` / `heldBlockLightValue2` uniforms with quadratic distance falloff, applied to terrain, entities, water, hand, and basic geometry shaders. Supports both main hand and off hand light sources.
 
 ## Installation
 

@@ -13,6 +13,7 @@ varying vec4 color;
 varying vec4 normal;
 varying vec3 tangent;
 varying vec3 binormal;
+varying vec3 viewPos;
 
 attribute vec4 mc_Entity;
 uniform vec2 texelSize;
@@ -43,7 +44,8 @@ void main() {
 	texcoordAffine = vec4(texcoord.xy * wVal, wVal, 0);
 
 	color = gl_Color;
-	
+	viewPos = (gl_ModelViewMatrix * gl_Vertex).xyz;
+
 	normal.a = 0.02;
 	normal.xyz = normalize(gl_NormalMatrix * gl_Normal);
 	

@@ -6,6 +6,7 @@
 	#define affine_mapping					//Toggles affine texture mapping
 	#define affine_clamp 2.0				//Adjusts texture coordinate bounds [0.0 1.0 2.0 3.0 4.0 5.0]
 	#define affine_clamp_enabled			//Enables clamping of texture coordinate bounds to avoid extreme stretching.
+	#define dynamic_hand_light				//Toggles dynamic lighting from held light sources
 #endif
 
 #ifdef gbuffers_terrain

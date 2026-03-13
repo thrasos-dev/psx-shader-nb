@@ -12,9 +12,13 @@ option.color_depth=Color Depth
 option.fog_distance=Fog Distance
 option.fog_enabled=Enable Depth Fog
 
+option.dynamic_hand_light=Dynamic Hand Light
+
 screen.AFFINE_SCREEN=Affine Mapping Settings
 screen.AFFINE_SCREEN.comment=Options related to texture warping.
 screen.MESH_SCREEN=Mesh Settings
 screen.MESH_SCREEN.comment=Options related to block, entity, and hand models.
 screen.PP_SCREEN=Post Processing Settings
 screen.PP_SCREEN.comment=Options related to post processing.
+screen.LIGHT_SCREEN=Lighting Settings
+screen.LIGHT_SCREEN.comment=Options related to lighting.

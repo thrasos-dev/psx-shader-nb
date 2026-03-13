@@ -10,6 +10,7 @@ varying vec4 texcoord;
 varying vec4 texcoordAffine;
 varying vec4 lmcoord;
 varying vec4 color;
+varying vec3 viewPos;
 
 uniform vec2 texelSize;
 
@@ -36,5 +37,6 @@ void main() {
 	texcoordAffine = vec4(texcoord.xy * wVal, wVal, 0);
 	
 	color = gl_Color;
+	viewPos = (gl_ModelViewMatrix * gl_Vertex).xyz;
 	gl_Position = toClipSpace3(position);
 }

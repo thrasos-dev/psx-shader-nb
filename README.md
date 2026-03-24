@@ -22,7 +22,7 @@ vec4 position4 = gl_ModelViewMatrix * vec4(gl_Vertex);
 
 ### Dynamic Hand Light
 
-Added real dynamic lighting from held light sources (torches, lanterns, etc.). Light now updates continuously as you move, rather than only when breaking/placing blocks. Uses `heldBlockLightValue` / `heldBlockLightValue2` uniforms with quadratic distance falloff, applied to terrain, entities, water, hand, and basic geometry shaders. Supports both main hand and off hand light sources.
+Added real dynamic lighting from held light sources (torches, lanterns, etc.). Light now updates continuously as you move, rather than only when breaking/placing blocks. Uses `heldBlockLightValue` / `heldBlockLightValue2` uniforms with linear distance falloff matching vanilla placed light behavior, applied to terrain, entities, water, hand, and basic geometry shaders. Supports both main hand and off hand light sources.
 
 ## Installation
 

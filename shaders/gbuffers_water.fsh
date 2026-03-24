@@ -42,7 +42,7 @@ void main() {
 	if (maxHeldLight > 0) {
 		float dist = length(viewPos);
 		float atten = max(0.0, 1.0 - dist / float(maxHeldLight));
-		atten *= atten;
+
 		float dynamicLm = (float(maxHeldLight) * atten) / 16.0 + 1.0 / 32.0;
 		lm.s = max(lm.s, dynamicLm);
 	}

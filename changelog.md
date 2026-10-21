@@ -1,5 +1,6 @@
 # PSX Shader NB
 
-## [1.2] - 24/03/2026
+## [1.3] - 21/10/2026
 
-- Changed dynamic hand light falloff to linear, matching vanilla placed light distance
+- Added a Cloud Style option under Sky Settings: Vanilla, Flat and Blocky
+- Added a Cloud Haze option under Sky Settings, on by default: a half-transparent layer around Flat and Blocky clouds

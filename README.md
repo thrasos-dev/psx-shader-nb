@@ -24,6 +24,18 @@ vec4 position4 = gl_ModelViewMatrix * vec4(gl_Vertex);
 
 Added real dynamic lighting from held light sources (torches, lanterns, etc.). Light now updates continuously as you move, rather than only when breaking/placing blocks. Uses `heldBlockLightValue` / `heldBlockLightValue2` uniforms with linear distance falloff matching vanilla placed light behavior, applied to terrain, entities, water, hand, and basic geometry shaders. Supports both main hand and off hand light sources.
 
+### Cloud Styles
+
+Sky Settings > Cloud Style:
+
+- **Vanilla**: Minecraft's clouds.
+- **Flat**: one cloud layer at cloud height, drawn from the vanilla cloud texture, so shapes and drift match vanilla. Three levels of opacity (clear, half, solid) with dithered steps between, and a stepped fade toward the horizon. Needs Iris; on OptiFine it falls back to Vanilla. The Clouds video setting does not turn it off.
+- **Blocky**: Minecraft's clouds with three flat tones (top, sides, bottom) and the same stepped opacity and fade.
+
+Sky Settings > Cloud Haze, on by default, draws the thin parts of the cloud texture at half opacity around Flat and Blocky clouds. Off, those clouds are solid or clear.
+
+With Sodium, Iris hides clouds under any shader pack, because Sodium draws them with its own shader. Set `mixin.features.render.world.clouds=false` in `config/sodium-mixins.properties` to get them back.
+
 ## Installation
 
 Place this shader pack in your Minecraft `shaderpacks` folder.

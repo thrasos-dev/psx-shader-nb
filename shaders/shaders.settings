@@ -28,3 +28,8 @@
 	#define fog_enabled						//Toggles depth fog
 	#define fog_distance 300				//Adjusts fog distance [100 200 300 400 500 600 700 800 900 1000 1500 2000 2500 3000]
 #endif
+
+#if defined composite || defined clouds_pass
+	#define cloud_style 0					//Cloud look. Flat needs Iris and falls back to Vanilla on OptiFine [0 1 2]
+	#define cloud_haze						//Half-transparent outer layer from the thin parts of the cloud texture
+#endif

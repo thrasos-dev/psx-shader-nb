@@ -14,6 +14,14 @@ option.fog_enabled=Enable Depth Fog
 
 option.dynamic_hand_light=Dynamic Hand Light
 
+option.cloud_style=Cloud Style
+option.cloud_style.comment=Vanilla: Minecraft's clouds. Flat: one dithered cloud layer, like a PS1 sky. Needs Iris. Blocky: Minecraft's clouds with three flat tones and a dithered fade.
+value.cloud_style.0=Vanilla
+value.cloud_style.1=Flat
+value.cloud_style.2=Blocky
+option.cloud_haze=Cloud Haze
+option.cloud_haze.comment=A half-transparent layer around the clouds, from the thin parts of the cloud texture.
+
 screen.AFFINE_SCREEN=Affine Mapping Settings
 screen.AFFINE_SCREEN.comment=Options related to texture warping.
 screen.MESH_SCREEN=Mesh Settings
@@ -22,3 +30,5 @@ screen.PP_SCREEN=Post Processing Settings
 screen.PP_SCREEN.comment=Options related to post processing.
 screen.LIGHT_SCREEN=Lighting Settings
 screen.LIGHT_SCREEN.comment=Options related to lighting.
+screen.SKY_SCREEN=Sky Settings
+screen.SKY_SCREEN.comment=Options related to the sky.

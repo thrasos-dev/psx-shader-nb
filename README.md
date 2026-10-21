@@ -36,6 +36,12 @@ Sky Settings > Cloud Haze, on by default, draws the thin parts of the cloud text
 
 With Sodium, Iris hides clouds under any shader pack, because Sodium draws them with its own shader. Set `mixin.features.render.world.clouds=false` in `config/sodium-mixins.properties` to get them back.
 
+### Vanilla Fog
+
+Post Processing Settings > Vanilla Fog, on by default. Where Minecraft's own fog is thick, it replaces the depth fog: the Nether, blindness, darkness, lava, powder snow, under water, and modded dimensions with thick fog. Elsewhere vanilla fog ends at the render distance, and the depth fog is used as before.
+
+Iris only gives vanilla's fog distances to passes that run while the world is drawn, so `deferred` saves them, with the fog colour, for `composite` (`colortex4` and `colortex2`).
+
 ## Installation
 
 Place this shader pack in your Minecraft `shaderpacks` folder.

@@ -27,6 +27,7 @@
 	#define color_depth 24					//Adjusts output color depth (posterization effect) [2 4 8 12 16 24 32 64 128]
 	#define fog_enabled						//Toggles depth fog
 	#define fog_distance 300				//Adjusts fog distance [100 200 300 400 500 600 700 800 900 1000 1500 2000 2500 3000]
+	#define vanilla_fog						//Uses Minecraft's fog where it is thick: the Nether, blindness, darkness, under water
 #endif
 
 #if defined composite || defined clouds_pass

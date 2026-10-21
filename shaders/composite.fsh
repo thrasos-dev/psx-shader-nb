@@ -37,6 +37,8 @@ uniform sampler2D depthtex2;
 uniform sampler2D gaux2;
 uniform sampler2D gaux3;
 uniform sampler2D gaux4;
+uniform sampler2D colortex2;
+uniform sampler2D gaux1;
 uniform vec2 texelSize;
 uniform float viewWidth;
 uniform float viewHeight;
@@ -196,18 +198,36 @@ vec3 getSkyColor(vec3 fposition) {
 	return pow(L*(c*exp(d*Y)+A),invRain07)*sunVisibility *length(rawAvg) * (0.85+rainStrength*0.425)*grad3+ 0.2*pow(L2*1.2+1.2,invRain07)*moonVisibility*gradN;
 }
 
+#ifdef vanilla_fog
+// How much of vanilla's fog to use, from where deferred saved it starts (x) and ends (y). None while
+// it ends at the far edge, as it normally does. All of it once it ends well inside, as in the Nether,
+// in blindness or darkness, or with the camera in water, lava or powder snow.
+float vanillaFogWeight(vec2 fog) {
+	if (fog.y <= fog.x || fog.y <= 0.0) return 0.0;
+	if (isEyeInWater > 0) return 1.0;
+	return 1.0 - smoothstep(far * 0.5, far * 0.9, fog.y);
+}
+#endif
+
 void main() {
 	float depth = texture2D(depthtex0, texcoord).r;
 	float depth1 = texture2D(depthtex1, texcoord).r;
-	
+
 	bool sky = depth >= 1.0;
 	bool skyNoClouds = depth1 >= 1.0;
-	
+
 	#ifdef fog_enabled
 	float fogDepth = depth * fog_distance - (fog_distance-1);
 	fogDepth = clamp(fogDepth, 0.0, 1.0);
 	#else
 	float fogDepth = (sky) ? 1.0 : 0.0;
+	#endif
+
+	#ifdef vanilla_fog
+	// Where vanilla's fog takes over, this fog and its sky give way to it.
+	vec2 vanillaFog = texture2D(gaux1, vec2(0.5)).rg;
+	float vanillaWeight = vanillaFogWeight(vanillaFog);
+	fogDepth *= 1.0 - vanillaWeight;
 	#endif
 	vec3 col = texture2D(colortex0, texcoord).rgb;
 	
@@ -266,7 +286,17 @@ void main() {
 		col = mix(col, cloudLayer.rgb, cloudLayer.a);
 		#endif
 	}
-	
+
+	#ifdef vanilla_fog
+	if (vanillaWeight > 0.0) {
+		// Linear from start to end, as vanilla draws it. Vanilla draws no sky in thick fog.
+		vec4 fogPos = gbufferProjectionInverse * (vec4(texcoord, depth, 1.0) * 2.0 - 1.0);
+		float fogDistance = length(fogPos.xyz / fogPos.w);
+		float amount = sky ? 1.0 : clamp((fogDistance - vanillaFog.x) / (vanillaFog.y - vanillaFog.x), 0.0, 1.0);
+		col = mix(col, texture2D(colortex2, vec2(0.5)).rgb, amount * vanillaWeight);
+	}
+	#endif
+
 	vec4 rain = texture2D(gaux4, texcoord);
 	if (rain.r > 0.0001 && rainStrength > 0.01 && !(depth1 < texture2D(depthtex2, texcoord).x)){
 		float rainRGB = 0.25;

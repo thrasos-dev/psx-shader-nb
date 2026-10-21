@@ -11,6 +11,8 @@ option.dither_amount=Dithering Amount
 option.color_depth=Color Depth
 option.fog_distance=Fog Distance
 option.fog_enabled=Enable Depth Fog
+option.vanilla_fog=Vanilla Fog
+option.vanilla_fog.comment=Uses Minecraft's own fog where it is thick: the Nether, blindness, darkness, lava, powder snow and under water. Elsewhere the depth fog is used.
 
 option.dynamic_hand_light=Dynamic Hand Light
 

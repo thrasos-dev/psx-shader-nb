@@ -311,7 +311,8 @@ void main() {
 		col = mix(col, weatherLight, clamp(rainA * 2.5, 0.0, 1.0));
 	}
 	
-	if(isEyeInWater > 0) {
+	// Water only: 2 is lava and 3 powder snow, which turned blue.
+	if(isEyeInWater == 1) {
 		col *= vec3(0.5, 0.6902, 1.0);
 	}
 

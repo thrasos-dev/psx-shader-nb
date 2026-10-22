@@ -42,6 +42,10 @@ Post Processing Settings > Vanilla Fog, on by default. Where Minecraft's own fog
 
 Iris only gives vanilla's fog distances to passes that run while the world is drawn, so `deferred` saves them, with the fog colour, for `composite` (`colortex4` and `colortex2`).
 
+### Lightning, Particles and Weather
+
+- Lightning has its own program: drawn at full brightness and added to the scene, as vanilla draws it.
+
 ## Installation
 
 Place this shader pack in your Minecraft `shaderpacks` folder.

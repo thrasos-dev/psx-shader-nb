@@ -299,16 +299,16 @@ void main() {
 
 	vec4 rain = texture2D(gaux4, texcoord);
 	if (rain.r > 0.0001 && rainStrength > 0.01 && !(depth1 < texture2D(depthtex2, texcoord).x)){
-		float rainRGB = 0.25;
 		float rainA = rain.r;
 
 		float torch_lightmap = 12.0 - min(rain.g/rain.r * 12.0,11.0);
 		torch_lightmap = 0.5 / torch_lightmap / torch_lightmap - 0.010595;
 
-		const vec3 moonlight = vec3(0.0025, 0.0045, 0.007);
-		vec3 rainC = rainRGB*(pow(max(dot(normalfragpos, sunVec)*0.1+0.9,0.0),6.0)*(0.1+tr*0.9)*pow(sunlight,vec3(0.25))*sunVisibility+pow(max(dot(normalfragpos, -sunVec)*0.05+0.95,0.0),6.0)*48.0*moonlight*moonVisibility)*0.04 + 0.05*rainRGB*length(avgAmbient2);
-		rainC += torch_lightmap*vec3(1.0,1.0,0.5);
-		col = ((1.0-rainA*0.3)+rainC*1.5*rainA)*0.3;
+		// Over the scene, lit like the sky: light by day, a dim grey at night, warmer near torches.
+		// It used to replace the scene with one dark grey, so rain was dark by day and snow was lost at night.
+		vec3 weatherLight = mix(vec3(0.42, 0.45, 0.50), vec3(0.62, 0.66, 0.72), sunVisibility);
+		weatherLight += torch_lightmap * vec3(1.0, 1.0, 0.5);
+		col = mix(col, weatherLight, clamp(rainA * 2.5, 0.0, 1.0));
 	}
 	
 	if(isEyeInWater > 0) {

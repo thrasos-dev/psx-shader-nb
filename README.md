@@ -46,6 +46,7 @@ Iris only gives vanilla's fog distances to passes that run while the world is dr
 
 - Lightning has its own program: drawn at full brightness and added to the scene, as vanilla draws it.
 - Particles have their own program (`gbuffers_textured_lit`) with the game's blending, so see-through particles such as the firework flash blend instead of being drawn solid.
+- Rain and snow are blended over the scene and lit like the sky: light by day, a dim grey at night, warmer near torches.
 
 ## Installation
 
